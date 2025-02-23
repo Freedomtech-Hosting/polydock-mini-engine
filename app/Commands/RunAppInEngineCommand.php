@@ -8,6 +8,8 @@ use App\Engine;
 
 use FreedomtechHosting\PolydockAppAmazeeioGeneric\PolydockAppAmazeeioGeneric;
 use Symfony\Component\Yaml\Yaml;
+use App\PolydockMiniEngineLogger;
+
 class RunAppInEngineCommand extends Command
 {
     /**
@@ -29,7 +31,8 @@ class RunAppInEngineCommand extends Command
      */
     public function handle()
     {
-        $engine = new Engine();
+        $logger = new PolydockMiniEngineLogger($this);
+        $engine = new Engine($logger);
         $appYmlFile = $this->argument('app-yml-file');
         $this->info('Running app in the mini-engine');
         $this->info('App yml file: ' . $appYmlFile);
@@ -59,8 +62,6 @@ class RunAppInEngineCommand extends Command
         $appSupportEmail = $appConfig['support-email'];
         $appConfiguration = $appConfig['configuration'] ?? [];
 
-        print_r($appConfiguration);
-
         if(!class_exists($appClass)) {
             throw new \Exception('App class does not exist');
         }
@@ -78,13 +79,5 @@ class RunAppInEngineCommand extends Command
         } catch (\Exception $e) {
             $this->error('Error: ' . $e->getMessage());
         }
-    }
-
-    /**
-     * Define the command's schedule.
-     */
-    public function schedule(Schedule $schedule): void
-    {
-        // $schedule->command(static::class)->everyMinute();
     }
 }
