@@ -1,0 +1,9 @@
+class: "FreedomtechHosting\\PolydockAppAmazeeioGeneric\\PolydockApp"
+name: "Simple amazee.io Node.js"
+description: "A simple deployment of a Node.js app on amazee.io"
+author: "Bryan Gruneberg"
+website: "https://freedomtech.hosting"
+support-email: "bryan.gruneberg@freedomtech.hosting"
+configuration:
+  happy: "treefish"
+  dodgy: "cart"
